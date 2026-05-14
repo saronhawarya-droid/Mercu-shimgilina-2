@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Shimgilina · Alex & Mihret · May 26, 2026</title>
+  <title>Shimgilina · Alex & Mihret · Sunday, May 24, 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap"
@@ -66,7 +66,6 @@
       background-size: 80px 80px;
     }
 
-    /* SEAL */
     #seal-screen {
       position: fixed;
       inset: 0;
@@ -159,9 +158,7 @@
     }
 
     @keyframes sealBreath {
-
-      0%,
-      100% {
+      0%, 100% {
         border-color: rgba(184, 145, 42, 0.4);
         box-shadow: 0 0 0 0 rgba(184, 145, 42, 0);
       }
@@ -173,9 +170,7 @@
     }
 
     @keyframes sealRing {
-
-      0%,
-      100% {
+      0%, 100% {
         opacity: 0.4;
       }
 
@@ -229,9 +224,7 @@
     }
 
     @keyframes tapBlink {
-
-      0%,
-      100% {
+      0%, 100% {
         opacity: 0.25;
       }
 
@@ -252,17 +245,31 @@
       }
     }
 
-    /* MAIN */
     #main {
       opacity: 0;
       transition: opacity 0.9s ease 0.3s;
+      position: relative;
+      isolation: isolate;
     }
 
     #main.show {
       opacity: 1;
     }
 
-    /* HERO */
+    #main::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background:
+        linear-gradient(90deg, rgba(184, 145, 42, 0.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(184, 145, 42, 0.04) 1px, transparent 1px);
+      background-size: 96px 96px;
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 85%, transparent 100%);
+    }
+
     .hero {
       position: relative;
       min-height: 100svh;
@@ -270,51 +277,119 @@
       background: var(--dark);
     }
 
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      z-index: 3;
+      pointer-events: none;
+      border: 1px solid rgba(232, 205, 128, 0.16);
+      border-radius: 28px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: clamp(22px, 6vw, 88px);
+      right: clamp(22px, 6vw, 88px);
+      bottom: clamp(22px, 5vw, 70px);
+      height: 54px;
+      z-index: 4;
+      pointer-events: none;
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0.82;
+    }
+
     .hero-grid {
       position: absolute;
       inset: 0;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 0.72fr 0.72fr 1.25fr;
       grid-template-rows: 1fr 1fr;
-      gap: 3px;
+      gap: 10px;
+      padding: 18px;
     }
 
     .hero-img {
       overflow: hidden;
       position: relative;
+      border-radius: 0;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-img::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(14, 12, 9, 0.08) 0%, rgba(14, 12, 9, 0.28) 62%, rgba(14, 12, 9, 0.58) 100%),
+        linear-gradient(135deg, rgba(184, 145, 42, 0.24), rgba(14, 12, 9, 0.18) 48%, rgba(0, 0, 0, 0.28));
+      mix-blend-mode: multiply;
+      opacity: 0.92;
+      transition: opacity 0.45s ease;
+    }
+
+    .hero-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(232, 205, 128, 0.13), inset 0 -80px 90px rgba(0, 0, 0, 0.24);
+    }
+
+    .hero-img:hover::before {
+      opacity: 0.72;
     }
 
     .hero-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.58) saturate(0.68);
-      transform: scale(1.08);
+      filter: brightness(0.72) saturate(0.86);
+      transform: scale(1.04);
       transition: transform 14s ease;
     }
 
-    .hero-img:nth-child(1) {
-      grid-row: 1/3;
+    .hero-img-right {
+      grid-column: 3;
+      grid-row: 1 / 3;
+    }
+
+    .hero-img-wide {
+      grid-column: 1 / 3;
+      grid-row: 1;
+    }
+
+    .hero-grid .hero-img:nth-child(3) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .hero-grid .hero-img:nth-child(4) {
+      grid-column: 2;
+      grid-row: 2;
     }
 
     .hero-img:nth-child(1) img {
-      object-position: center 20%;
+      object-position: center 42%;
     }
 
     .hero-img:nth-child(2) img {
-      object-position: center 30%;
+      object-position: center 45%;
     }
 
     .hero-img:nth-child(3) img {
-      object-position: center 10%;
+      object-position: center 44%;
     }
 
     .hero-img:nth-child(4) img {
-      object-position: center 55%;
-    }
-
-    .hero-img:nth-child(5) img {
-      object-position: center 35%;
+      object-position: center 45% !important;
     }
 
     .hero-overlay {
@@ -332,6 +407,7 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: clamp(28px, 6vw, 80px) clamp(24px, 7vw, 100px) clamp(44px, 7vw, 100px);
+      max-width: 920px;
     }
 
     .fade-up {
@@ -381,6 +457,7 @@
       backdrop-filter: blur(8px);
       width: fit-content;
       margin-bottom: 18px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
     }
 
     .badge-dot {
@@ -392,9 +469,7 @@
     }
 
     @keyframes bdot {
-
-      0%,
-      100% {
+      0%, 100% {
         opacity: 1;
         transform: scale(1);
       }
@@ -420,19 +495,7 @@
       line-height: 0.9;
       color: var(--ivory);
       letter-spacing: -0.02em;
-    }
-
-    .hero-names em {
-      font-style: italic;
-      color: var(--gold3);
-    }
-
-    .hero-amh {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1rem, 2.5vw, 1.7rem);
-      font-style: italic;
-      color: rgba(232, 205, 128, 0.5);
-      margin-top: 10px;
+      text-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
     }
 
     .hero-pills {
@@ -454,6 +517,7 @@
       background: rgba(184, 145, 42, 0.05);
       backdrop-filter: blur(8px);
       font-weight: 400;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
     }
 
     .scroll-ind {
@@ -504,23 +568,6 @@
       }
     }
 
-    @media(max-width:700px) {
-      .hero-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
-      }
-
-      .hero-img:nth-child(1) {
-        grid-row: 1/3;
-      }
-
-      .hero-img:nth-child(4),
-      .hero-img:nth-child(5) {
-        display: none;
-      }
-    }
-
-    /* SHARED */
     .sec {
       padding: clamp(60px, 10vw, 120px) clamp(20px, 8vw, 110px);
       max-width: 1180px;
@@ -585,36 +632,6 @@
       flex-shrink: 0;
     }
 
-    .eth-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      margin-bottom: 20px;
-    }
-
-    .eth-bar {
-      width: 100%;
-      height: 5px;
-      background: repeating-linear-gradient(90deg, var(--gold) 0, var(--gold) 5px, transparent 5px, transparent 9px, rgba(184, 145, 42, 0.38) 9px, rgba(184, 145, 42, 0.38) 13px, transparent 13px, transparent 17px);
-      opacity: 0.6;
-    }
-
-    .eth-thin {
-      width: 100%;
-      height: 3px;
-      background: repeating-linear-gradient(90deg, rgba(184, 145, 42, 0.5) 0, rgba(184, 145, 42, 0.5) 3px, transparent 3px, transparent 7px);
-      opacity: 0.4;
-    }
-
-    .eth-zig {
-      width: 100%;
-      height: 10px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='10'%3E%3Cpolyline points='0,8 5,2 10,8 15,2 20,8' fill='none' stroke='%23b8912a' stroke-width='1' opacity='0.4'/%3E%3C/svg%3E");
-      background-repeat: repeat-x;
-      background-size: 20px 10px;
-    }
-
-    /* REVEAL */
     .r {
       opacity: 0;
       transform: translateY(36px);
@@ -638,360 +655,254 @@
       transition-delay: 0.3s;
     }
 
-    .r.d4 {
-      transition-delay: 0.4s;
-    }
-
-    /* VERSE */
-    .verse-wrap {
-      background: linear-gradient(135deg, rgba(26, 23, 16, 0.98), rgba(14, 12, 9, 1));
-      border-top: 1px solid rgba(184, 145, 42, 0.09);
-      border-bottom: 1px solid rgba(184, 145, 42, 0.09);
-    }
-
-    .verse-card {
-      border-left: 2px solid var(--gold);
-      padding: 26px 26px 26px 30px;
-      background: rgba(184, 145, 42, 0.03);
-      border-radius: 0 12px 12px 0;
-      max-width: 680px;
-    }
-
-    .v-amh {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(0.98rem, 2vw, 1.2rem);
-      font-style: italic;
-      line-height: 1.85;
-      color: var(--gold3);
-      margin-bottom: 12px;
-    }
-
-    .v-en {
-      font-size: clamp(0.8rem, 1.4vw, 0.93rem);
-      line-height: 1.9;
-      color: var(--muted);
-      font-style: italic;
-      margin-bottom: 12px;
-    }
-
-    .v-ref {
-      font-size: 0.58rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 400;
-    }
-
-    .inv-p {
-      font-size: clamp(0.9rem, 1.7vw, 1.05rem);
-      line-height: 1.95;
-      color: rgba(250, 246, 239, 0.6);
-      margin-bottom: 14px;
-      max-width: 660px;
-    }
-
-    .inv-p strong {
-      color: var(--gold3);
-      font-weight: 500;
-    }
-
-    /* PILLARS */
-    .concept-wrap {
-      background: var(--dark);
+    .date-showcase {
+      background:
+        radial-gradient(circle at top left, rgba(212, 170, 74, 0.08), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(232, 205, 128, 0.06), transparent 28%),
+        linear-gradient(160deg, rgba(26, 23, 16, 0.98), rgba(14, 12, 9, 1));
       border-top: 1px solid rgba(184, 145, 42, 0.08);
-    }
-
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0;
-      border: 1px solid rgba(184, 145, 42, 0.1);
-      border-radius: 16px;
+      border-bottom: 1px solid rgba(184, 145, 42, 0.08);
+      position: relative;
       overflow: hidden;
     }
 
-    .pillar {
-      padding: 32px 22px;
-      border-right: 1px solid rgba(184, 145, 42, 0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
-      transition: background 0.3s ease;
-    }
-
-    .pillar:last-child {
-      border-right: none;
-    }
-
-    .pillar:hover {
-      background: rgba(184, 145, 42, 0.04);
-    }
-
-    .p-icon {
-      font-size: 1.6rem;
-    }
-
-    .p-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.88rem;
-      color: var(--gold3);
-      font-weight: 400;
-      line-height: 1.3;
-    }
-
-    .p-amh {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.68rem;
-      font-style: italic;
-      color: rgba(184, 145, 42, 0.42);
-    }
-
-    @media(max-width:800px) {
-      .pillars {
-        grid-template-columns: 1fr 1fr;
-        border-radius: 12px;
-      }
-
-      .pillar {
-        border-bottom: 1px solid rgba(184, 145, 42, 0.08);
-      }
-
-      .pillar:nth-child(2n) {
-        border-right: none;
-      }
-
-      .pillar:last-child {
-        border-bottom: none;
-      }
-    }
-
-    @media(max-width:450px) {
-      .pillars {
-        grid-template-columns: 1fr;
-      }
-
-      .pillar {
-        border-right: none;
-      }
-    }
-
-    /* JOURNEY */
-    .journey-wrap {
-      background: linear-gradient(180deg, var(--dark2), var(--dark));
-      border-top: 1px solid rgba(184, 145, 42, 0.08);
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0;
-      position: relative;
-    }
-
-    .steps::before {
-      content: '';
+    .date-showcase::before {
+      content: "";
       position: absolute;
-      top: 36px;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(184, 145, 42, 0.2) 20%, rgba(184, 145, 42, 0.2) 80%, transparent);
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image:
+        linear-gradient(rgba(184, 145, 42, 0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184, 145, 42, 0.18) 1px, transparent 1px);
+      background-size: 90px 90px;
+      mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
     }
 
-    .step {
+    .date-showcase-head {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 0 14px;
-    }
-
-    .step-circ {
-      width: 72px;
-      height: 72px;
-      border: 1px solid rgba(184, 145, 42, 0.28);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--dark2);
+      margin-bottom: 34px;
       position: relative;
       z-index: 1;
-      margin-bottom: 18px;
-      transition: border-color 0.35s, box-shadow 0.35s;
     }
 
-    .step:hover .step-circ {
-      border-color: rgba(184, 145, 42, 0.65);
-      box-shadow: 0 0 26px rgba(184, 145, 42, 0.1);
+    .date-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 16px;
+      border: 1px solid rgba(184, 145, 42, 0.2);
+      border-radius: 999px;
+      background: rgba(184, 145, 42, 0.07);
+      backdrop-filter: blur(12px);
+      margin-bottom: 16px;
     }
 
-    .step-n {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      color: var(--gold2);
+    .date-kicker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold2);
+      box-shadow: 0 0 12px rgba(212, 170, 74, 0.45);
+    }
+
+    .date-kicker span {
+      font-size: 0.58rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold3);
       font-weight: 400;
     }
 
-    .step-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.88rem;
-      color: var(--ivory);
-      margin-bottom: 5px;
-      font-weight: 400;
-      line-height: 1.3;
-    }
-
-    .step-amh {
-      font-size: 0.68rem;
-      font-style: italic;
-      color: rgba(184, 145, 42, 0.42);
-      font-family: 'Playfair Display', serif;
-    }
-
-    @media(max-width:850px) {
-      .steps {
-        grid-template-columns: 1fr 1fr;
-        gap: 28px;
-      }
-
-      .steps::before {
-        display: none;
-      }
-    }
-
-    @media(max-width:460px) {
-      .steps {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* PHOTOS */
-    .mosaic {
+    .date-layout {
       display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      grid-template-rows: 280px 280px;
-      gap: 4px;
-    }
-
-    .mc {
-      overflow: hidden;
+      grid-template-columns: minmax(300px, 0.95fr) minmax(340px, 1.05fr);
+      gap: 24px;
+      align-items: stretch;
       position: relative;
-      background: var(--brown);
+      z-index: 1;
     }
 
-    .mc:nth-child(1) {
-      grid-row: 1/3;
-    }
-
-    .mc img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.8) saturate(0.8);
-      transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), filter 0.7s ease;
-      transform: scale(1.04);
-    }
-
-    .mc:hover img {
-      transform: scale(1.1);
-      filter: brightness(0.95) saturate(1);
-    }
-
-    @media(max-width:680px) {
-      .mosaic {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 200px 200px 200px;
-      }
-
-      .mc:nth-child(5) {
-        display: none;
-      }
-    }
-
-    /* COUNTDOWN */
-    .cd-wrap {
-      background: linear-gradient(160deg, rgba(26, 23, 16, 0.98), rgba(14, 12, 9, 1));
-      border-top: 1px solid rgba(184, 145, 42, 0.08);
+    .modern-panel {
       position: relative;
+      border: 1px solid rgba(184, 145, 42, 0.14);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
       overflow: hidden;
     }
 
-    .cd-wrap::before {
-      content: '';
+    .modern-panel::before {
+      content: "";
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(184, 145, 42, 0.05) 0%, transparent 60%);
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(232, 205, 128, 0.06), transparent 34%, transparent 66%, rgba(184, 145, 42, 0.05));
+    }
+
+    .modern-panel-inner {
+      position: relative;
+      z-index: 1;
+      padding: 28px;
+      height: 100%;
+    }
+
+    .panel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .panel-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(184, 145, 42, 0.16);
+      background: rgba(184, 145, 42, 0.06);
+      font-size: 0.56rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold3);
+      font-weight: 400;
+    }
+
+    .panel-mini {
+      font-size: 0.62rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(250, 246, 239, 0.34);
+    }
+
+    .count-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1;
+      color: var(--ivory);
+      margin-bottom: 10px;
+    }
+
+    .count-title em {
+      color: var(--gold3);
+      font-style: italic;
+    }
+
+    .count-copy {
+      max-width: 520px;
+      color: rgba(250, 246, 239, 0.56);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .t-grid.modern {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(120px, 1fr));
+      gap: 14px;
+      max-width: none;
+      margin: 0;
+    }
+
+    .t-box.modern {
+      padding: 22px 14px;
+      border-radius: 22px;
+      border: 1px solid rgba(184, 145, 42, 0.16);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.012)),
+        rgba(26, 23, 16, 0.76);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    }
+
+    .t-box.modern::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(212, 170, 74, 0.09), transparent 50%);
       pointer-events: none;
     }
 
-    .t-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    .t-box {
-      padding: 24px 10px;
-      border: 1px solid rgba(184, 145, 42, 0.17);
-      border-radius: 14px;
-      background: rgba(26, 23, 16, 0.85);
-      backdrop-filter: blur(10px);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .t-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(184, 145, 42, 0.42), transparent);
-    }
-
-    .t-n {
+    .t-box.modern .t-n {
       display: block;
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.9rem, 5.5vw, 3.2rem);
-      font-weight: 400;
-      color: var(--gold2);
+      font-size: clamp(2rem, 4vw, 3.3rem);
       line-height: 1;
-      margin-bottom: 5px;
+      color: var(--gold2);
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
     }
 
-    .t-l {
+    .t-box.modern .t-l {
       display: block;
-      font-size: 0.54rem;
+      font-size: 0.55rem;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 400;
+      position: relative;
+      z-index: 1;
     }
 
-    /* CALENDAR */
-    .cal-card {
-      border: 1px solid rgba(184, 145, 42, 0.16);
-      border-radius: 18px;
+    .countdown-foot {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(184, 145, 42, 0.1);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(250, 246, 239, 0.34);
+    }
+
+    .cal-wrap-modern {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .calendar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      color: var(--ivory);
+      line-height: 1.05;
+    }
+
+    .calendar-title em {
+      color: var(--gold3);
+      font-style: italic;
+    }
+
+    .calendar-sub {
+      color: rgba(250, 246, 239, 0.56);
+      line-height: 1.8;
+      font-size: 0.92rem;
+    }
+
+    .cal-card.modern {
+      border: 1px solid rgba(184, 145, 42, 0.14);
+      border-radius: 24px;
       overflow: hidden;
-      background: rgba(26, 23, 16, 0.7);
+      background: rgba(20, 17, 12, 0.7);
       backdrop-filter: blur(14px);
-      max-width: 600px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+      max-width: none;
     }
 
-    .cal-hd {
-      padding: 16px 20px;
-      background: rgba(184, 145, 42, 0.07);
+    .cal-hd.modern {
+      padding: 18px 20px;
+      background: linear-gradient(180deg, rgba(184, 145, 42, 0.09), rgba(184, 145, 42, 0.04));
       border-bottom: 1px solid rgba(184, 145, 42, 0.1);
       text-align: center;
       font-size: 0.62rem;
@@ -1001,26 +912,32 @@
       font-weight: 400;
     }
 
-    table.cal {
+    table.cal.modern {
       width: 100%;
       border-collapse: collapse;
     }
 
-    table.cal th {
-      padding: 12px 4px 9px;
-      font-size: 0.56rem;
+    table.cal.modern th {
+      padding: 14px 4px 10px;
+      font-size: 0.55rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--muted);
       font-weight: 400;
       text-align: center;
+      background: rgba(255, 255, 255, 0.012);
     }
 
-    table.cal td {
-      height: 60px;
+    table.cal.modern td {
+      height: 68px;
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.03);
       vertical-align: middle;
+      transition: background 0.25s ease;
+    }
+
+    table.cal.modern td:hover {
+      background: rgba(184, 145, 42, 0.04);
     }
 
     .de {
@@ -1035,12 +952,28 @@
       display: block;
       font-size: 0.58rem;
       color: var(--muted);
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
     .wd {
-      background: var(--gold) !important;
       position: relative;
+      background: linear-gradient(135deg, var(--gold2), var(--gold)) !important;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+    }
+
+    .wd::after {
+      content: "Event";
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 0.42rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #111;
+      background: rgba(255, 255, 255, 0.42);
+      padding: 3px 5px;
+      border-radius: 999px;
+      font-weight: 700;
     }
 
     .wd .de,
@@ -1049,116 +982,187 @@
       font-weight: 700;
     }
 
-    @media(max-width:560px) {
-      table.cal td {
-        height: 48px;
-      }
-
-      .de {
-        font-size: 0.85rem;
-      }
-    }
-
-    /* SCHEDULE */
-    .sched-wrap {
-      background: var(--dark2);
-      border-top: 1px solid rgba(184, 145, 42, 0.08);
-    }
-
-    .tl {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .tl-card {
-      padding: 26px 20px;
+    .event-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 16px;
       border: 1px solid rgba(184, 145, 42, 0.12);
-      border-radius: 14px;
-      background: rgba(14, 12, 9, 0.7);
-      backdrop-filter: blur(10px);
-      position: relative;
-      transition: transform 0.32s, border-color 0.32s;
+      border-radius: 18px;
+      background: rgba(184, 145, 42, 0.05);
     }
 
-    .tl-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(184, 145, 42, 0.35), transparent);
-      border-radius: 14px 14px 0 0;
+    .event-note strong {
+      color: var(--gold3);
+      font-weight: 500;
     }
 
-    .tl-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(184, 145, 42, 0.26);
+    .event-note span {
+      color: rgba(250, 246, 239, 0.56);
+      font-size: 0.86rem;
     }
 
-    .tl-n {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
-      font-weight: 400;
-      color: rgba(184, 145, 42, 0.15);
-      line-height: 1;
-      margin-bottom: 14px;
-    }
-
-    .tl-time {
-      font-family: 'Cinzel', serif;
-      font-size: 0.62rem;
-      letter-spacing: 2px;
-      color: var(--gold);
-      margin-bottom: 7px;
-    }
-
-    .tl-title {
-      font-size: 0.93rem;
-      color: var(--ivory);
-      margin-bottom: 4px;
-      font-weight: 400;
-    }
-
-    .tl-sub {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    @media(max-width:700px) {
-      .tl {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media(max-width:450px) {
-      .tl {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* MAP */
     .map-wrap {
       background: var(--dark);
       border-top: 1px solid rgba(184, 145, 42, 0.08);
+      position: relative;
     }
 
+    .map-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.055;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 5 52 20 40 35 28 20Z' fill='none' stroke='%23e8cd80' stroke-width='1'/%3E%3Cpath d='M40 45 52 60 40 75 28 60Z' fill='none' stroke='%23e8cd80' stroke-width='1'/%3E%3Cpath d='M5 40 20 28 35 40 20 52Z' fill='none' stroke='%23e8cd80' stroke-width='1'/%3E%3Cpath d='M45 40 60 28 75 40 60 52Z' fill='none' stroke='%23e8cd80' stroke-width='1'/%3E%3C/svg%3E");
+    }
+
+    .map-shell {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
+      gap: 24px;
+      align-items: stretch;
+      position: relative;
+      z-index: 1;
+    }
+
+    .map-info,
     .map-card {
       border: 1px solid rgba(184, 145, 42, 0.13);
-      border-radius: 18px;
+      border-radius: 24px;
       overflow: hidden;
+      background: rgba(20, 17, 12, 0.68);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+    }
+
+    .map-info {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .map-kicker {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(184, 145, 42, 0.16);
+      background: rgba(184, 145, 42, 0.06);
+      font-size: 0.56rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold3);
+      font-weight: 400;
+    }
+
+    .map-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.05;
+      color: var(--ivory);
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .map-title em {
+      color: var(--gold3);
+      font-style: italic;
+    }
+
+    .map-copy {
+      color: rgba(250, 246, 239, 0.56);
+      line-height: 1.9;
+      font-size: 0.96rem;
+      max-width: 520px;
+    }
+
+    .map-meta {
+      display: grid;
+      gap: 14px;
+    }
+
+    .map-meta-item {
+      padding: 16px 18px;
+      border: 1px solid rgba(184, 145, 42, 0.1);
+      border-radius: 18px;
+      background: rgba(184, 145, 42, 0.04);
+    }
+
+    .map-meta-label {
+      display: block;
+      font-size: 0.54rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold2);
+      margin-bottom: 6px;
+    }
+
+    .map-meta-value {
+      display: block;
+      color: var(--ivory);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .map-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.62rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: all 0.28s ease;
+    }
+
+    .map-btn-primary {
+      border: 1px solid rgba(184, 145, 42, 0.42);
+      color: var(--dark);
+      background: var(--gold3);
+    }
+
+    .map-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 44px rgba(184, 145, 42, 0.18);
+    }
+
+    .map-btn-secondary {
+      border: 1px solid rgba(184, 145, 42, 0.22);
+      color: var(--gold3);
+      background: rgba(184, 145, 42, 0.06);
+    }
+
+    .map-btn-secondary:hover {
+      background: rgba(184, 145, 42, 0.12);
+      transform: translateY(-2px);
     }
 
     .map-card iframe {
       display: block;
       width: 100%;
-      height: clamp(260px, 42vw, 440px);
+      height: 100%;
+      min-height: 440px;
       border: none;
       filter: invert(0.87) hue-rotate(180deg) brightness(0.82) saturate(0.62);
     }
 
-    /* CLOSING */
     .close-wrap {
       text-align: center;
       padding: clamp(70px, 12vw, 140px) clamp(20px, 8vw, 110px);
@@ -1226,171 +1230,149 @@
     }
 
 
-    /* MODERN PATTERN + IMAGE UPGRADE */
-    #main {
-      position: relative;
-      isolation: isolate;
+    .pill {
+      transition: transform 0.28s ease, background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
     }
 
-    #main::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background:
-        linear-gradient(90deg, rgba(184, 145, 42, 0.05) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(184, 145, 42, 0.04) 1px, transparent 1px);
-      background-size: 96px 96px;
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 85%, transparent 100%);
+    .pill:hover {
+      transform: translateY(-2px);
+      background: rgba(184, 145, 42, 0.1);
+      border-color: rgba(212, 170, 74, 0.36);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      z-index: 3;
-      pointer-events: none;
-      border: 1px solid rgba(232, 205, 128, 0.16);
-      border-radius: 28px;
+    .panel-tag,
+    .map-kicker,
+    .date-kicker,
+    .hero-badge,
+    .pill,
+    .map-meta-item,
+    .event-note,
+    .tg-btn,
+    .map-btn {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      left: clamp(22px, 6vw, 88px);
-      right: clamp(22px, 6vw, 88px);
-      bottom: clamp(22px, 5vw, 70px);
-      height: 54px;
-      z-index: 4;
-      pointer-events: none;
+    .modern-panel,
+    .map-info,
+    .map-card,
+    .cal-card.modern {
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .modern-panel:hover,
+    .map-info:hover,
+    .map-card:hover,
+    .cal-card.modern:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212, 170, 74, 0.22);
+      box-shadow:
+        0 28px 90px rgba(0, 0, 0, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .map-meta-value a {
+      color: var(--ivory);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232, 205, 128, 0.22);
+    }
+
+    .map-meta-value a:hover {
+      color: var(--gold3);
+      border-bottom-color: rgba(232, 205, 128, 0.56);
+    }
+
+    .map-pin {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      width: fit-content;
+      border-radius: 16px;
+      border: 1px solid rgba(184, 145, 42, 0.14);
+      background: rgba(184, 145, 42, 0.05);
+      color: var(--gold3);
+      font-size: 0.72rem;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .map-pin strong {
+      font-weight: 500;
+      color: var(--ivory);
+      letter-spacing: 0;
+      text-transform: none;
+      font-size: 0.9rem;
+    }
+
+    .map-note {
+      color: rgba(250, 246, 239, 0.5);
+      font-size: 0.84rem;
+      line-height: 1.7;
+      margin-top: 6px;
+    }
+
+    .copy-btn {
+      appearance: none;
+      border: 1px solid rgba(184, 145, 42, 0.22);
+      background: rgba(184, 145, 42, 0.06);
+      color: var(--gold3);
       border-radius: 999px;
-      /* background: linear-gradient(90deg, rgba(5, 4, 3, 0.72), rgba(184, 145, 42, 0.11), rgba(5, 4, 3, 0.45)); */
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      opacity: 0.82;
+      padding: 10px 14px;
+      font: inherit;
+      font-size: 0.6rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.28s ease, background 0.28s ease, border-color 0.28s ease;
     }
 
-    .eth-stack {
-      width: min(560px, 92vw);
-      padding: 12px 16px;
-      border: 1px solid rgba(232, 205, 128, 0.16);
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(5, 4, 3, 0.74), rgba(184, 145, 42, 0.10), rgba(5, 4, 3, 0.42));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(184, 145, 42, 0.12);
+      border-color: rgba(212, 170, 74, 0.34);
     }
 
-    .eth-zig {
-      animation: patternSlide 18s linear infinite;
+    .copy-btn.done {
+      color: var(--dark);
+      background: var(--gold3);
+      border-color: var(--gold3);
     }
 
-    @keyframes patternSlide {
-      to {
-        background-position-x: 240px;
+    @media(max-width:980px) {
+      .date-layout,
+      .map-shell {
+        grid-template-columns: 1fr;
       }
     }
 
-    .hero-grid {
-      grid-template-columns: 1.25fr 0.72fr 0.72fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 10px;
-      padding: 18px;
-    }
-
-    .hero-img {
-      border-radius: 0px;
-      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.25);
-    }
-
-    .hero-img img {
-      filter: brightness(0.72) saturate(0.86);
-      transform: scale(1.04);
-    }
-
-    .hero-img:nth-child(1) img {
-      object-position: center 42%;
-    }
-
-    .hero-img:nth-child(2) img {
-      object-position: center 45%;
-    }
-
-    .hero-img:nth-child(3) img {
-      object-position: center 44%;
-    }
-
-    .hero-img:nth-child(4) img {
-      object-position: center 45% !important;
-    }
-
-    .hero-img:nth-child(5) img {
-      object-position: center 43% !important;
-    }
-
-    .hero-content {
-      max-width: 920px;
-    }
-
-    .hero-badge,
-    .pill {
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
-    }
-
-    .hero-names {
-      text-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
-    }
-
-    .verse-wrap,
-    .concept-wrap,
-    .journey-wrap,
-    .cd-wrap,
-    .sched-wrap,
-    .map-wrap,
-    .close-wrap,
-    section:not(.hero) {
-      position: relative;
-    }
-
-    .verse-wrap::before,
-    .concept-wrap::before,
-    .journey-wrap::before,
-    .cd-wrap::after,
-    .sched-wrap::before,
-    .map-wrap::before,
-    .close-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.055;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 5 52 20 40 35 28 20Z' fill='none' stroke='%23e8cd80' stroke-width='1'/%3E%3Cpath d='M40 45 52 60 40 75 28 60Z' fill='none' stroke='%23e8cd80' stroke-width='1'/%3E%3Cpath d='M5 40 20 28 35 40 20 52Z' fill='none' stroke='%23e8cd80' stroke-width='1'/%3E%3Cpath d='M45 40 60 28 75 40 60 52Z' fill='none' stroke='%23e8cd80' stroke-width='1'/%3E%3C/svg%3E");
-    }
-
-    .mc {
-      border-radius: 24px;
-      border: 1px solid rgba(232, 205, 128, 0.10);
-      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.24);
-    }
-
-    .mc img {
-      transition: transform .8s ease, filter .8s ease;
-      filter: brightness(.84) saturate(.88);
-    }
-
-    .mc:hover img {
-      transform: scale(1.06);
-      filter: brightness(1) saturate(1);
-    }
-
     @media(max-width:700px) {
+      .hero {
+        min-height: 100svh;
+      }
+
       .hero-grid {
-        padding: 8px;
-        gap: 6px;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        inset: 0;
+        padding: 0;
+        gap: 0;
+        display: block;
+      }
+
+      .hero-grid .hero-img:not(.hero-img-right) {
+        display: none;
+      }
+
+      .hero-img-right {
+        display: block;
+        position: absolute;
+        inset: 0;
+      }
+
+      .hero-img-right img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
       }
 
       .hero::before {
@@ -1405,101 +1387,63 @@
         height: 44px;
       }
 
-      .eth-stack {
-        border-radius: 22px;
+      .hero-overlay {
+        background:
+          linear-gradient(to bottom, rgba(14, 12, 9, 0.14) 0%, rgba(14, 12, 9, 0.28) 50%, rgba(14, 12, 9, 0.98) 100%);
+      }
+
+      .hero-content {
+        max-width: none;
+        padding: 28px 22px 38px;
+      }
+
+      .hero-names {
+        font-size: clamp(2.4rem, 11vw, 4rem);
+      }
+
+      .hero-badge {
+        margin-bottom: 14px;
+      }
+
+      .hero-pills {
+        margin-top: 18px;
       }
     }
 
-
-    /* IMAGE OVERLAY */
-    .hero-img::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(14, 12, 9, 0.08) 0%, rgba(14, 12, 9, 0.28) 62%, rgba(14, 12, 9, 0.58) 100%),
-        linear-gradient(135deg, rgba(184, 145, 42, 0.24), rgba(14, 12, 9, 0.18) 48%, rgba(0, 0, 0, 0.28));
-      mix-blend-mode: multiply;
-      opacity: 0.92;
-      transition: opacity 0.45s ease;
-    }
-
-    .hero-img::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      border-radius: inherit;
-      box-shadow: inset 0 0 0 1px rgba(232, 205, 128, 0.13), inset 0 -80px 90px rgba(0, 0, 0, 0.24);
-    }
-
-    .hero-img:hover::before {
-      opacity: 0.72;
-    }
-
-
-    /* UPDATED HERO IMAGE PLACEMENT */
-    .hero-grid {
-      grid-template-columns: 0.72fr 0.72fr 1.25fr;
-      grid-template-rows: 1fr 1fr;
-    }
-
-    .hero-img-right {
-      grid-column: 3;
-      grid-row: 1 / 3;
-    }
-
-    .hero-img-wide {
-      grid-column: 1 / 3;
-      grid-row: 1;
-    }
-
-    .hero-grid .hero-img:nth-child(3) {
-      grid-column: 1;
-      grid-row: 2;
-    }
-
-    .hero-grid .hero-img:nth-child(4) {
-      grid-column: 2;
-      grid-row: 2;
-    }
-
-    @media(max-width:700px) {
-      .hero-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+    @media(max-width:560px) {
+      .modern-panel-inner,
+      .map-info {
+        padding: 20px;
       }
 
-      .hero-img-right {
-        grid-column: 2;
-        grid-row: 1 / 3;
+      .t-grid.modern {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .hero-img-wide {
-        grid-column: 1;
-        grid-row: 1;
+      table.cal.modern td {
+        height: 52px;
       }
 
-      .hero-grid .hero-img:nth-child(3) {
-        grid-column: 1;
-        grid-row: 2;
+      .de {
+        font-size: 0.84rem;
       }
 
-      .hero-grid .hero-img:nth-child(4) {
-        display: block;
-        grid-column: 1 / 3;
-        grid-row: 3;
+      .dg {
+        font-size: 0.5rem;
+      }
+
+      .wd::after {
+        display: none;
+      }
+
+      .map-card iframe {
+        min-height: 320px;
       }
     }
-
   </style>
 </head>
 
 <body>
-
   <div id="seal-screen">
     <div class="seal-bg"></div>
     <div class="seal-bg-m"></div>
@@ -1507,7 +1451,6 @@
     <div class="seal-content">
       <div class="seal-emblem">
         <span class="seal-mono">A&M</span>
-        <span class="seal-amh">አሌክስ & ሚህረት</span>
       </div>
       <div class="seal-title">Shimgilina</div>
       <div class="seal-sub">ሽምግልና · The Elders' Blessing</div>
@@ -1517,26 +1460,23 @@
   </div>
 
   <div id="main">
-
     <section class="hero">
       <div class="hero-grid">
-        <div class="hero-img hero-img-right"><img src="assets/a.png" alt="Alex & Mihret wide portrait" /></div>
+        <div class="hero-img hero-img-right"><img src="assets/a.png" alt="Alex & Mihret portrait" /></div>
         <div class="hero-img hero-img-wide"><img src="assets/e.png" alt="Alex & Mihret celebration" /></div>
-        
         <div class="hero-img"><img src="assets/h.png" alt="Alex & Mihret" /></div>
         <div class="hero-img"><img src="assets/f.png" alt="Alex & Mihret" /></div>
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-      
         <div class="hero-badge fade-up">
           <div class="badge-dot"></div>
-          <span class="badge-txt">Monday · May 26, 2026</span>
+          <span class="badge-txt">Sunday · May 24, 2026</span>
         </div>
-        <h1 class="hero-names fade-up">ሽምግልና Shimgilina  </h1>
-        <!-- <p class="hero-amh fade-up">አሌክስ &amp; ሚህረት</p> -->
+        <h1 class="hero-names fade-up">ሽምግልና Shimgilina</h1>
         <div class="hero-pills fade-up">
-          <div class="pill">East West · Bisrate Gebriel</div>
+          <div class="pill">Sarbet · Mechare Meda · Addis Ababa</div>
+          <div class="pill">Sunday · 1:00 PM EAT · 7:00 Ethiopian time</div>
         </div>
         <div class="scroll-ind">
           <div class="scroll-line"></div>
@@ -1545,182 +1485,149 @@
       </div>
     </section>
 
-    <section class="verse-wrap">
-      <div class="sec">
-        <p class="lbl r">Scripture</p>
-        <h2 class="ttl r d1">A Blessing<br><em>Over This Union</em></h2>
-        <div class="verse-card r d2">
-          <p class="v-amh">«ሙሽራይቱ ያለችው እርሱ ሙሽራ ነው፤ ቆሞ የሚሰማው ሚዜው ግን በሙሽራው ድምጽ እጅግ ደስ ይለዋል።»</p>
-          <p class="v-en">"He that hath the bride is the bridegroom: but the friend of the bridegroom, which standeth
-            and heareth him, rejoiceth greatly because of the bridegroom's voice."</p>
-          <p class="v-ref">John 3:29</p>
-        </div>
-        <div class="orn r d3">
-          <div class="orn-line"></div>
-          <div class="orn-dot"></div>
-          <div class="orn-gem"></div>
-          <div class="orn-dot"></div>
-          <div class="orn-line"></div>
-        </div>
-        <p class="inv-p r d2">ውድ ቤተሰቦቻችን እና ጓደኞቻችን — እነሆ በእግዚአብሔር ፈቃድ የሽምግልና ሥነ-ሥርዓታችንን ለመፈጸም ተዘጋጅተናል።</p>
-        <p class="inv-p r d3">Our elders will carry our families' honour to seek the blessing that opens the door to our
-          future together. We invite you to witness this sacred moment.</p>
-        <p class="inv-p r d3">የማይደገም እና የማይረሳ ቀናችንን ከእኛ ጋር ቢያሳልፉ ደስታችን እጥፍ ድርብ ነው።</p>
-      </div>
-    </section>
-
     <div class="sep"></div>
 
-    <section class="concept-wrap">
+    <section class="date-showcase">
       <div class="sec">
-        <p class="lbl r">The Tradition</p>
-        <h2 class="ttl r d1" style="margin-bottom:28px;">The Spirit of<br><em>Shimgilina</em></h2>
-        <div class="pillars r d2">
-          <div class="pillar"><span class="p-icon">🕊️</span>
-            <div class="p-name">Formal Proposal</div>
-            <div class="p-amh">የፍቅር ልመና</div>
+        <div class="date-showcase-head">
+          <div class="date-kicker r">
+            <div class="date-kicker-dot"></div>
+            <span>May 24, 2026 · The Date & Countdown</span>
           </div>
-          <div class="pillar"><span class="p-icon">🧓</span>
-            <div class="p-name">The Shimagelay</div>
-            <div class="p-amh">ሽምጋሌ</div>
-          </div>
-          <div class="pillar"><span class="p-icon">🙏</span>
-            <div class="p-name">Humility & Reverence</div>
-            <div class="p-amh">ክብርና ትህትና</div>
-          </div>
-          <div class="pillar"><span class="p-icon">🤝</span>
-            <div class="p-name">Two Families, One</div>
-            <div class="p-amh">የቤተሰብ ጥምረት</div>
-          </div>
-          <div class="pillar"><span class="p-icon">🎁</span>
-            <div class="p-name">Sacred Gifts</div>
-            <div class="p-amh">የስጦታ ምልክት</div>
-          </div>
+          <p class="lbl r">The Date</p>
+          <h2 class="ttl r d1">Calendar &<br><em>Countdown</em></h2>
         </div>
-      </div>
-    </section>
 
+        <div class="date-layout">
+          <div class="modern-panel r d2">
+            <div class="modern-panel-inner">
+              <div class="panel-top">
+                <div class="panel-tag">Counting Down</div>
+                <div class="panel-mini">Sunday · May 24, 2026 · 1:00 PM EAT</div>
+                <div class="panel-mini">እሁድ · ግንቦት 16, 2018 · ከቀኑ 7 ሰዓት</div>
+              </div>
 
+              <h3 class="count-title">Until the <em>Elders Speak</em></h3>
+              <p class="count-copy">
+                A live countdown to the Shimgilina day, marking the moment families gather,
+                blessings are shared, and the celebration begins.
+              </p>
 
+              <div class="t-grid modern">
+                <div class="t-box modern">
+                  <span class="t-n" id="days">00</span>
+                  <span class="t-l">Days</span>
+                </div>
+                <div class="t-box modern">
+                  <span class="t-n" id="hours">00</span>
+                  <span class="t-l">Hours</span>
+                </div>
+                <div class="t-box modern">
+                  <span class="t-n" id="mins">00</span>
+                  <span class="t-l">Mins</span>
+                </div>
+                <div class="t-box modern">
+                  <span class="t-n" id="secs">00</span>
+                  <span class="t-l">Secs</span>
+                </div>
+              </div>
 
-
-    <div class="sep"></div>
-
-    <section class="cd-wrap">
-      <div class="sec" style="text-align:center;">
-        <p class="lbl r" style="justify-content:center;display:flex;">Counting Down</p>
-        <h2 class="ttl r d1" style="text-align:center;">Until the<br><em>Elders Speak</em></h2>
-        <div class="t-grid r d2">
-          <div class="t-box"><span class="t-n" id="days">00</span><span class="t-l">Days</span></div>
-          <div class="t-box"><span class="t-n" id="hours">00</span><span class="t-l">Hours</span></div>
-          <div class="t-box"><span class="t-n" id="mins">00</span><span class="t-l">Mins</span></div>
-          <div class="t-box"><span class="t-n" id="secs">00</span><span class="t-l">Secs</span></div>
-        </div>
-      </div>
-    </section>
-
-    <div class="sep"></div>
-
-    <section>
-      <div class="sec">
-        <p class="lbl r">The Date</p>
-        <h2 class="ttl r d1">Shimgilina<br><em>Day</em></h2>
-        <div class="cal-card r d2">
-          <div class="cal-hd">ግንቦት 2018 &nbsp;·&nbsp; May 2026</div>
-          <table class="cal">
-            <thead>
-              <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><span class="de">1</span><span class="dg">9</span></td>
-                <td><span class="de">2</span><span class="dg">10</span></td>
-                <td><span class="de">3</span><span class="dg">11</span></td>
-              </tr>
-              <tr>
-                <td><span class="de">4</span><span class="dg">12</span></td>
-                <td><span class="de">5</span><span class="dg">13</span></td>
-                <td><span class="de">6</span><span class="dg">14</span></td>
-                <td><span class="de">7</span><span class="dg">15</span></td>
-                <td><span class="de">8</span><span class="dg">16</span></td>
-                <td><span class="de">9</span><span class="dg">17</span></td>
-                <td><span class="de">10</span><span class="dg">18</span></td>
-              </tr>
-              <tr>
-                <td><span class="de">11</span><span class="dg">19</span></td>
-                <td><span class="de">12</span><span class="dg">20</span></td>
-                <td><span class="de">13</span><span class="dg">21</span></td>
-                <td><span class="de">14</span><span class="dg">22</span></td>
-                <td><span class="de">15</span><span class="dg">23</span></td>
-                <td><span class="de">16</span><span class="dg">24</span></td>
-                <td><span class="de">17</span><span class="dg">25</span></td>
-              </tr>
-              <tr>
-                <td class="wd"><span class="de">18</span><span class="dg">26</span></td>
-                <td><span class="de">19</span><span class="dg">27</span></td>
-                <td><span class="de">20</span><span class="dg">28</span></td>
-                <td><span class="de">21</span><span class="dg">29</span></td>
-                <td><span class="de">22</span><span class="dg">30</span></td>
-                <td><span class="de">23</span><span class="dg">1</span></td>
-                <td><span class="de">24</span><span class="dg">2</span></td>
-              </tr>
-              <tr>
-                <td><span class="de">25</span><span class="dg">3</span></td>
-                <td><span class="de">26</span><span class="dg">4</span></td>
-                <td><span class="de">27</span><span class="dg">5</span></td>
-                <td><span class="de">28</span><span class="dg">6</span></td>
-                <td><span class="de">29</span><span class="dg">7</span></td>
-                <td><span class="de">30</span><span class="dg">8</span></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <div class="sep"></div>
-
-    <section class="sched-wrap">
-      <div class="sec">
-        <p class="lbl r">Program</p>
-        <h2 class="ttl r d1">Day of<br><em>Shimgilina</em></h2>
-        <div class="tl">
-          <div class="tl-card r d1">
-            <div class="tl-n">01</div>
-            <div class="tl-time">03:00 · LT</div>
-            <div class="tl-title">Groom's House</div>
-            <div class="tl-sub">አያት ዞን 1</div>
+              <div class="countdown-foot">May 24, 2026 · Shimgilina Celebration</div>
+            </div>
           </div>
-          <div class="tl-card r d2">
-            <div class="tl-n">02</div>
-            <div class="tl-time">04:00 · LT</div>
-            <div class="tl-title">Bride's House</div>
-            <div class="tl-sub">አያት ዞን 3</div>
-          </div>
-          <div class="tl-card r d3">
-            <div class="tl-n">03</div>
-            <div class="tl-time">05:00 · LT</div>
-            <div class="tl-title">Departing to Venue</div>
-            <div class="tl-sub">ጉዞ ወደ አዳራሽ</div>
-          </div>
-          <div class="tl-card r d4">
-            <div class="tl-n">04</div>
-            <div class="tl-time">06:30 · LT</div>
-            <div class="tl-title">Lunch Celebration</div>
-            <div class="tl-sub">East West · Gofa Mebrat</div>
+
+          <div class="modern-panel r d3">
+            <div class="modern-panel-inner cal-wrap-modern">
+              <div class="panel-top">
+                <div class="panel-tag">Calendar View</div>
+                <div class="panel-mini">ግንቦት 16, 2018</div>
+              </div>
+
+              <div>
+                <h3 class="calendar-title">Shimgilina <em>Day</em></h3>
+                <p class="calendar-sub">
+                  The selected day is highlighted so guests can instantly see the celebration date.
+                </p>
+              </div>
+
+              <div class="cal-card modern">
+                <div class="cal-hd modern">ግንቦት 2018 &nbsp;·&nbsp; May 2026</div>
+                <table class="cal modern">
+                  <thead>
+                    <tr>
+                      <th>Sun</th>
+                      <th>Mon</th>
+                      <th>Tue</th>
+                      <th>Wed</th>
+                      <th>Thu</th>
+                      <th>Fri</th>
+                      <th>Sat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><span class="de">1</span></td>
+                      <td><span class="de">2</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="de">3</span></td>
+                      <td><span class="de">4</span></td>
+                      <td><span class="de">5</span></td>
+                      <td><span class="de">6</span></td>
+                      <td><span class="de">7</span></td>
+                      <td><span class="de">8</span></td>
+                      <td><span class="de">9</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="de">10</span></td>
+                      <td><span class="de">11</span></td>
+                      <td><span class="de">12</span></td>
+                      <td><span class="de">13</span></td>
+                      <td><span class="de">14</span></td>
+                      <td><span class="de">15</span></td>
+                      <td><span class="de">16</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="de">17</span></td>
+                      <td><span class="de">18</span></td>
+                      <td><span class="de">19</span></td>
+                      <td><span class="de">20</span></td>
+                      <td><span class="de">21</span></td>
+                      <td><span class="de">22</span></td>
+                      <td><span class="de">23</span></td>
+                    </tr>
+                    <tr>
+                      <td class="wd"><span class="de">24</span><span class="dg">Ginbot 16</span></td>
+                      <td><span class="de">25</span></td>
+                      <td><span class="de">26</span></td>
+                      <td><span class="de">27</span></td>
+                      <td><span class="de">28</span></td>
+                      <td><span class="de">29</span></td>
+                      <td><span class="de">30</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="de">31</span></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="event-note">
+                <strong>Highlighted Date:</strong>
+                <span>Sunday, May 24, 2026 · Ginbot 16, 2018 · 1:00 PM EAT</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1730,12 +1637,58 @@
 
     <section class="map-wrap">
       <div class="sec">
-        <p class="lbl r">Location</p>
-        <h2 class="ttl r d1">Venue &amp;<br><em>Directions</em></h2>
-        <div class="map-card r d2">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3941.0325096643937!2d38.74715387384831!3d8.96915148992531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b840f18c9e7fd%3A0x6fff5ee2cb351002!2sEast%20West%20%7C%20Gofa%20Mebrat!5e0!3m2!1sen!2set!4v1775851020116!5m2!1sen!2set"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-shell">
+          <div class="map-info r">
+            <div>
+              <div class="map-kicker">Location</div>
+              <h2 class="map-title">Venue &<br><em>Directions</em></h2>
+              <p class="map-copy">
+                Join us at the celebration venue and use the live map below for easy directions.
+                The pin matches the Sarbet / Mechare Meda area, and the buttons open the exact Google Maps point.
+              </p>
+              <div class="map-pin">
+                <span>Venue</span>
+                <strong>Sarbet · Mechare Meda · Addis Ababa</strong>
+              </div>
+              <p class="map-note">Landmark-style wording is easier for guests than coordinates alone, so both are shown here.</p>
+            </div>
+
+            <div class="map-meta">
+              <div class="map-meta-item">
+                <span class="map-meta-label">Venue Area</span>
+                <span class="map-meta-value">Sarbet · Mechare Meda · Addis Ababa</span>
+              </div>
+              <div class="map-meta-item">
+                <span class="map-meta-label">Coordinates</span>
+                <span class="map-meta-value">
+                  8°59'31.1"N, 38°44'06.5"E
+                  <button class="copy-btn" id="copy-coords" type="button">Copy</button>
+                </span>
+              </div>
+              <div class="map-meta-item">
+                <span class="map-meta-label">Google Maps</span>
+                <span class="map-meta-value"><a href="https://www.google.com/maps/place/8%C2%B059'31.1%22N+38%C2%B044'06.5%22E/@8.991972,38.7325541,17z/data=!3m1!4b1!4m4!3m3!8m2!3d8.991972!4d38.735129?entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Open the shared pin for turn-by-turn directions</a></span>
+              </div>
+            </div>
+
+            <div class="map-actions">
+              <a class="map-btn map-btn-primary"
+                href="https://www.google.com/maps/place/8%C2%B059'31.1%22N+38%C2%B044'06.5%22E/@8.991972,38.7325541,17z/data=!3m1!4b1!4m4!3m3!8m2!3d8.991972!4d38.735129?entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank" rel="noopener noreferrer">Open in Maps</a>
+              <a class="map-btn map-btn-secondary"
+                href="https://www.google.com/maps/dir/?api=1&destination=8.991972,38.735129"
+                target="_blank" rel="noopener noreferrer">Get Directions</a>
+            </div>
+          </div>
+
+          <div class="map-card r d1">
+            <iframe
+              src="https://maps.google.com/maps?q=8.991972,38.735129&z=17&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
     </section>
@@ -1751,43 +1704,121 @@
       <p class="close-q r">"When the elders speak,<br>two families become one."</p>
       <p class="close-sub r d1">"መገኘትዎ ለደስታችን ትልቅ ትርጉም አለው።"<br>Your presence means the world to us.</p>
       <div class="r d2">
-        <a href="https://t.me/+HM3dTldn4X9kNTVk" target="_blank" class="tg-btn">
+        <a href="https://t.me/+ag3CxSsvQa5hNTI0" target="_blank" rel="noopener noreferrer" class="tg-btn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
             <path
               d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.89.03-.24.36-.49.99-.75 3.88-1.69 6.47-2.8 7.76-3.32 3.69-1.5 4.46-1.76 4.96-1.77.11 0 .36.03.52.17.13.12.17.28.19.39.01.07.02.21.01.27z" />
           </svg>
-          Share Photos · Telegram
+          Join Telegram Channel
         </a>
       </div>
     </section>
-
   </div>
 
   <script>
     const seal = document.getElementById('seal-screen');
     const main = document.getElementById('main');
+    const timerGrid = document.querySelector('.t-grid.modern');
+    const copyButton = document.getElementById('copy-coords');
+    const eventTarget = new Date('2026-05-24T13:00:00+03:00').getTime();
+
+    let sealOpened = false;
+
     function openSeal() {
+      if (sealOpened) return;
+      sealOpened = true;
       seal.classList.add('opening');
-      setTimeout(() => { seal.style.display = 'none'; main.classList.add('show'); }, 880);
+      window.setTimeout(() => {
+        seal.style.display = 'none';
+        main.classList.add('show');
+      }, 880);
     }
-    seal.addEventListener('click', openSeal);
-    seal.addEventListener('touchend', e => { e.preventDefault(); openSeal(); });
 
-    const target = new Date("May 26, 2026 05:00:00").getTime();
+    seal.addEventListener('click', openSeal, { once: true });
+    seal.addEventListener('touchend', (event) => {
+      event.preventDefault();
+      openSeal();
+    }, { passive: false, once: true });
+    seal.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openSeal();
+      }
+    });
+
+    seal.setAttribute('role', 'button');
+    seal.setAttribute('tabindex', '0');
+    seal.setAttribute('aria-label', 'Open invitation');
+
+    function pad(value) {
+      return String(Math.floor(value)).padStart(2, '0');
+    }
+
+    function renderFinishedState() {
+      timerGrid.innerHTML = '<p style="grid-column:1/-1;color:var(--gold2);font-family:Playfair Display,serif;font-style:italic;font-size:1.2rem;text-align:center;padding:18px">The Elders Have Spoken!</p>';
+    }
+
     function tick() {
-      const d = target - Date.now();
-      if (d < 0) { document.querySelector('.t-grid').innerHTML = '<p style="grid-column:1/-1;color:var(--gold2);font-family:Playfair Display,serif;font-style:italic;font-size:1.2rem;text-align:center;padding:18px">The Elders Have Spoken!</p>'; return; }
-      const p = n => String(Math.floor(n)).padStart(2, '0');
-      document.getElementById('days').textContent = p(d / 86400000);
-      document.getElementById('hours').textContent = p((d % 86400000) / 3600000);
-      document.getElementById('mins').textContent = p((d % 3600000) / 60000);
-      document.getElementById('secs').textContent = p((d % 60000) / 1000);
-    }
-    setInterval(tick, 1000); tick();
+      const remaining = eventTarget - Date.now();
 
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } }), { threshold: 0.1 });
-    document.querySelectorAll('.r').forEach(el => io.observe(el));
-    window.addEventListener('load', () => document.querySelectorAll('.hero-img img').forEach(i => i.style.transform = 'scale(1)'));
+      if (remaining <= 0) {
+        renderFinishedState();
+        return true;
+      }
+
+      document.getElementById('days').textContent = pad(remaining / 86400000);
+      document.getElementById('hours').textContent = pad((remaining % 86400000) / 3600000);
+      document.getElementById('mins').textContent = pad((remaining % 3600000) / 60000);
+      document.getElementById('secs').textContent = pad((remaining % 60000) / 1000);
+
+      return false;
+    }
+
+    const countdownInterval = window.setInterval(() => {
+      if (tick()) {
+        window.clearInterval(countdownInterval);
+      }
+    }, 1000);
+
+    tick();
+
+    if (copyButton) {
+      copyButton.addEventListener('click', async () => {
+        const value = '8°59\'31.1\"N, 38°44\'06.5\"E';
+        try {
+          await navigator.clipboard.writeText(value);
+          copyButton.textContent = 'Copied';
+          copyButton.classList.add('done');
+          window.setTimeout(() => {
+            copyButton.textContent = 'Copy';
+            copyButton.classList.remove('done');
+          }, 1800);
+        } catch (error) {
+          copyButton.textContent = 'Unavailable';
+          window.setTimeout(() => {
+            copyButton.textContent = 'Copy';
+          }, 1800);
+        }
+      });
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('v');
+          io.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('.r').forEach((element) => io.observe(element));
+
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.hero-img img').forEach((image) => {
+        image.style.transform = 'scale(1)';
+      });
+    });
   </script>
 </body>
 
